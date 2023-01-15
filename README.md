@@ -1,4 +1,4 @@
-# Cheappy Crawler
+# Pricy Crawler
 
 
 
@@ -10,7 +10,7 @@ Help command:
 cargo run -- -h
 ```
 
-
+Pricy bot is fully modular. You can easily add a new shop to it.
 List of available shops:
 ```bash
 cargo run -- -l

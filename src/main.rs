@@ -1,4 +1,4 @@
-//! Cheappy is a web crawler to find products and their price.
+//! Pricy is a web crawler to find products and their price.
 //! It crawls shops for products with off and store them in DB.
 #![allow(dead_code)]
 mod models;
