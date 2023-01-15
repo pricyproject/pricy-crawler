@@ -1,0 +1,74 @@
+{
+  "shop": {
+    "country": "uk",
+    "sitename": "johnlewis",
+    "site_address": "https://www.johnlewis.com/",
+    "sitemap_address": "https://www.johnlewis.com/sitemap/products/products.xml"
+  },
+  "products": [
+    {
+      "id": "44c492e5-b304-4310-9d30-36a32b371d09",
+      "name": "Tommee Tippee The Original Grobag Ollie the Owl Sleeping Bag, 1 Tog, Grey, 6-18 mths",
+      "link": "https://www.johnlewis.com/tommee-tippee-the-original-grobag-ollie-the-owl-sleeping-bag-1-tog-grey/p5419776",
+      "price": 35.99,
+      "currency": "Pound",
+      "description": "",
+      "updated_at": "2023-01-15",
+      "tags": [],
+      "main_cat_link": "",
+      "enable": true,
+      "discount": 0,
+      "image": "http://johnlewis.scene7.com/is/image/JohnLewis/005261557?.jpg",
+      "color": "",
+      "brand": ""
+    },
+    {
+      "id": "5e12e14a-b8d4-44f7-8b59-5b15455f2bda",
+      "name": "Whistles Camilla Wide Leg Trousers, Black",
+      "link": "https://www.johnlewis.com/whistles-camilla-wide-leg-trousers/p5966220",
+      "price": 79.0,
+      "currency": "Pound",
+      "description": "",
+      "updated_at": "2023-01-15",
+      "tags": [],
+      "main_cat_link": "",
+      "enable": true,
+      "discount": 0,
+      "image": "http://johnlewis.scene7.com/is/image/JohnLewis/005939771??.jpg",
+      "color": "",
+      "brand": ""
+    },
+    {
+      "id": "a0ad878d-ab35-44a5-a30c-0f22cbc62683",
+      "name": "Whistles Camilla Wide Leg Trousers, Black",
+      "link": "https://www.johnlewis.com/whistles-camilla-wide-leg-trousers/black/p5966220",
+      "price": 79.0,
+      "currency": "Pound",
+      "description": "",
+      "updated_at": "2023-01-15",
+      "tags": [],
+      "main_cat_link": "",
+      "enable": true,
+      "discount": 0,
+      "image": "http://johnlewis.scene7.com/is/image/JohnLewis/005939771??.jpg",
+      "color": "",
+      "brand": ""
+    },
+    {
+      "id": "f8e0c1e0-0162-41cb-b964-705a191c684f",
+      "name": "Whistles Camilla Wide Leg Trousers, Navy",
+      "link": "https://www.johnlewis.com/whistles-camilla-wide-leg-trousers/navy/p5966220",
+      "price": 79.0,
+      "currency": "Pound",
+      "description": "",
+      "updated_at": "2023-01-15",
+      "tags": [],
+      "main_cat_link": "",
+      "enable": true,
+      "discount": 0,
+      "image": "http://johnlewis.scene7.com/is/image/JohnLewis/005939769??.jpg",
+      "color": "",
+      "brand": ""
+    }
+  ]
+}
