@@ -1,0 +1,7 @@
+/target
+/sitemaps
+/.vscode/
+Cargo.lock
+.env
+/migrations
+/.idea/

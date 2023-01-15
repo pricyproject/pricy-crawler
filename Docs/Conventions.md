@@ -1,0 +1,1 @@
+1. Shopnames are unique. `jdsports.com` different from `jdsports.it`. For the first one we have `jdsports_com` and for the second one we have `jdsports_it`. Modules name is based on the shopname which is converted to lowercase and then to snake case (snake_case).

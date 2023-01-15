@@ -1,0 +1,13 @@
+[shop_detail]
+sitename = "trony_it"
+site_address = "https://www.trony.it/"
+# This is path of products.
+sitemap_address=  "https://www.trony.it/online/sitemap/TRONY-SITEMAP?FilePattern=product&SiteMapFileNo=0"
+country = "it"
+[shop_config]
+is_gzip = false
+timeout = 15
+delay = 1
+requests = 500
+[custom_headers]
+user_agent = "Firefox"

@@ -1,0 +1,14 @@
+[shop_detail]
+sitename = "currys_co_uk"
+country = "uk"
+site_address = "https://www.currys.co.uk"
+sitemap_address = "https://www.currys.co.uk/sitemap"
+[shop_config]
+is_gzip = true
+timeout = 15
+delay = 1
+requests = 500
+[custom_headers]
+user_agent = "Firefox"
+[meta_config]
+work_field = ["tv", ""]

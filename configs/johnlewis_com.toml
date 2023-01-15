@@ -1,0 +1,12 @@
+[shop_detail]
+country = "uk"
+sitename = "johnlewis"
+site_address = "https://www.johnlewis.com/"
+sitemap_address = "https://www.johnlewis.com/sitemap/products/products.xml"
+[shop_config]
+is_gzip = true
+timeout = 15
+delay = 1
+requests = 500
+[custom_headers]
+user_agent = "Firefox"

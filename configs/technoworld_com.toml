@@ -1,0 +1,12 @@
+[shop_detail]
+sitename = "technoworld_com"
+site_address = "https://www.technoworld.com/"
+sitemap_address=  "https://www.technoworld.com/computing"
+country = "uk"
+[shop_config]
+is_gzip = false
+timeout = 15
+delay = 1
+requests = 500
+[custom_headers]
+user_agent = "Firefox"
