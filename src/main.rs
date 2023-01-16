@@ -21,8 +21,7 @@ struct Args {
     #[clap(
         short = 's',
         long = "shops",
-        // multiple_values =  true
-        // default_value = "technoworld curry"
+        num_args =  0..        // default_value = "technoworld curry"
     )]
     shops_name: Vec<ShopName>,
 
