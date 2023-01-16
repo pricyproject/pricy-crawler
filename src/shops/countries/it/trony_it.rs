@@ -35,7 +35,7 @@ impl Shop for TronyIt {
         let sitemap_file_path = format!(
             "sitemaps/{}/plain/{}/sitemap.txt",
             Self.to_string().to_snake_case(),
-            Utc::now().date().naive_utc()
+            Utc::now().date_naive()
         );
         let sitemap_file = read_to_string(sitemap_file_path)?;
         let mut products: Vec<Product> = Vec::new();

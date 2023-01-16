@@ -16,7 +16,7 @@ use utilities::url_reader;
 #[derive(Parser, Debug)]
 #[clap(author, version, about, long_about = None)]
 struct Args {
-    /// List of store names to crawl
+    /// Shop names to crawl
     // short and long flags (-S, --shops) will be deduced from the field's name
     #[clap(
         short = 's',
@@ -25,10 +25,10 @@ struct Args {
     )]
     shops_name: Vec<ShopName>,
 
-    /// List of indexed shops to crawl.
+    /// List of indexed shops
     #[clap(short = 'l', long = "list")]
     list: bool,
-    /// List of indexed shops to crawl.
+    /// Custom headers
     #[clap(short = 'H', long = "Header")]
     header: Option<String>,
     /// Changes current user-agent to a bot.

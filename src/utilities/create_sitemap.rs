@@ -8,7 +8,7 @@ use std::{
 };
 // Call now() to print current crawl time
 pub fn now() -> String {
-    Utc::now().date().naive_utc().to_string()
+    Utc::now().date_naive().to_string()
 }
 
 // This function would create a directory inside the `./sitemaps/` dir.

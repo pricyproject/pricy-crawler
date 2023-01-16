@@ -48,7 +48,7 @@ impl Default for Product {
             link: String::new(),
             price: 0.0,
             currency: Currency::Dollar,
-            updated_at: Utc::now().date().naive_utc().to_string(),
+            updated_at: Utc::now().date_naive().to_string(),
             tags: vec![],
             main_cat_link: "".to_string(),
             enable: true,
