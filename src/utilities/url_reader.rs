@@ -20,9 +20,8 @@ pub async fn url_loader_from_pipe() -> Result<()> {
     /// This is absoulte solution for gathering valid urls.
     let mut valid_urls = vec![];
     for input_line in buffer.lines() {
-        match url_regex.captures(input_line) {
-            Some(valid_url) => valid_urls.push(valid_url.get(0).unwrap().as_str()),
-            None => (),
+        if let Some(valid_url) = url_regex.captures(input_line) {
+            valid_urls.push(valid_url.get(0).unwrap().as_str())
         }
     }
 
