@@ -37,9 +37,12 @@ struct Args {
     /// Accept urls by piping all URLs.
     #[clap(short = 'p', long = "pipe")]
     pipe: bool,
-    /// Store sitemaps in Storage.
+    /// Store sitemaps in Storage. Add "--gzip true" if sitemap is in gzip format
     #[clap(long = "save_sitemap")]
     save_sitemap: bool,
+    /// Decodes sitemap with gzip content
+    #[clap(short = 'g', long = "gzip")]
+    gzip: Option<bool>,
 
     /// Store sitemaps in Storage.
     #[clap(long = "crawl_in_storage_urls")]
@@ -60,7 +63,8 @@ async fn main() -> Result<()> {
             return Ok(());
         }
         if opt.save_sitemap {
-            shop.store_sitemap_urls_in_storage().await?;
+            shop.store_sitemap_urls_in_storage(opt.gzip.is_some())
+                .await?;
             return Ok(());
         }
         if shop.to_shop().can_crawl().await {

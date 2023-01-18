@@ -27,7 +27,7 @@ cargo run -- -s johnlewis_com  | jq '.'
 ##### Save sitemap links on storage:
 
 ```bash
-cargo run -- -s johnlewis_com --save_sitemap | jq '.'
+cargo run -- -s johnlewis_com --save_sitemap
 ```
 
 
