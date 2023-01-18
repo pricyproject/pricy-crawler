@@ -43,5 +43,6 @@ pub fn create_local_sitemap(
         }
     }
 
+    println!("Sitemap created successfully on {path:?}");
     Ok(())
 }
