@@ -58,19 +58,30 @@ struct Args {
 async fn main() -> Result<()> {
     let opt = Args::parse();
     for shop in &opt.shops_name {
-        if opt.crawl_in_storage_urls {
-            shop.to_shop().crawl_in_storage_urls().await?;
-            return Ok(());
-        }
-        if opt.save_sitemap {
-            shop.store_sitemap_urls_in_storage(opt.gzip.is_some())
-                .await?;
-            return Ok(());
-        }
-        if shop.to_shop().can_crawl().await {
-            shop.to_shop().crawl().await?;
-        } else {
-            eprint!("You are not allow to crawl this websites due to its `robots.txt` file.")
+        match opt {
+            Args {
+                crawl_in_storage_urls: true,
+                ..
+            } => {
+                shop.to_shop().crawl_in_storage_urls().await?;
+                return Ok(());
+            }
+            Args {
+                save_sitemap: true, ..
+            } => {
+                shop.store_sitemap_urls_in_storage(opt.gzip.is_some())
+                    .await?;
+                return Ok(());
+            }
+            _ => {
+                if shop.to_shop().can_crawl().await {
+                    shop.to_shop().crawl().await?;
+                } else {
+                    eprint!(
+                        "You are not allow to crawl this websites due to its `robots.txt` file."
+                    )
+                }
+            }
         }
     }
 

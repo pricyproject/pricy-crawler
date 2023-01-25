@@ -30,6 +30,12 @@ cargo run -- -s johnlewis_com  | jq '.'
 cargo run -- -s johnlewis_com --save_sitemap
 ```
 
+- If sitemap is in `gzip` format
+
+```bash
+cargo run -- -s yourshop_com --save_sitemap --gzip true
+```
+
 
 Crawl a single product:
 
