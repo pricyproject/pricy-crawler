@@ -37,6 +37,9 @@ struct Args {
     /// Accept urls by piping all URLs.
     #[clap(short = 'p', long = "pipe")]
     pipe: bool,
+    /// Crawl multiple products in one request
+    #[clap(short = 'm', long = "multiple_products")]
+    multiple_products: Option<String>,
     /// Store sitemaps in Storage. Add "--gzip true" if sitemap is in gzip format
     #[clap(long = "save_sitemap")]
     save_sitemap: bool,
@@ -91,6 +94,21 @@ async fn main() -> Result<()> {
             for shop in ShopName::VARIANTS.iter().sorted() {
                 println!("{}: {:?}", i, *shop);
                 i += 1;
+            }
+        }
+        Args {
+            multiple_products: Some(_),
+            ..
+        } => {
+            for url in opt.multiple_products.clone().unwrap().split(',') {
+                let shop = ShopName::from_url(url);
+
+                if shop.is_none() {
+                    eprintln!("Couldn't find shop for {url}");
+                    continue;
+                }
+                let shop = shop.unwrap();
+                shop.crawl_single_url(url).await?;
             }
         }
 

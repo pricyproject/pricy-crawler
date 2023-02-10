@@ -22,9 +22,7 @@ impl JohnlewisCom {
     pub fn new() -> Self {
         Self {}
     }
-    pub async fn crawl_single_url(valid_url: &str) -> Result<()> {
-        let m = valid_url.to_string();
-        println!("{m:?}");
+    pub async fn crawl_single_url(_valid_url: &str) -> Result<()> {
         Ok(())
     }
 }

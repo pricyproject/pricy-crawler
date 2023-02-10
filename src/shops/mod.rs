@@ -1,3 +1,5 @@
+use strum::VariantNames;
+
 pub mod countries;
 
 pub mod shop_trait;
@@ -36,6 +38,18 @@ pub enum ShopName {
 }
 
 impl ShopName {
+    pub fn from_str(shop_name: &str) -> Option<ShopName> {
+        match shop_name {
+            "technoworld_com" => Some(ShopName::TechnoworldCom),
+            "currys_co_uk" => Some(ShopName::CurrysCoUk),
+            "laptopsdirect_co_uk" => Some(ShopName::LaptopsdirectCoUk),
+            "johnlewis_com" => Some(ShopName::JohnlewisCom),
+            "nordicnest_com" => Some(ShopName::NordicnestCom),
+            "jdsports_it" => Some(ShopName::JdsportsIt),
+            "trony_it" => Some(ShopName::TronyIt),
+            _ => None,
+        }
+    }
     pub fn to_shop(&self) -> Box<dyn Shop> {
         match self {
             ShopName::TechnoworldCom => Box::new(TechnoworldCom::new()),
@@ -70,5 +84,15 @@ impl ShopName {
         create_local_sitemap(&sitemap_links, false, &shop_detail)?;
 
         Ok(())
+    }
+
+    pub fn from_url(url: &str) -> Option<ShopName> {
+        let url = url.trim().to_lowercase();
+        for shop in ShopName::VARIANTS.iter() {
+            if url.contains(shop.replace('_', ".").to_string().as_str()) {
+                return ShopName::from_str(shop);
+            }
+        }
+        None
     }
 }
