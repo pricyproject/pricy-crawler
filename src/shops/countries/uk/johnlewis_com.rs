@@ -6,6 +6,7 @@ use crate::{
         conf_loader::config_loader,
         website::{get_response, get_sitemap_links, get_sitemap_links_by_content},
     },
+    LIMIT_PAGES,
 };
 use anyhow::Result;
 use async_trait::async_trait;
@@ -14,7 +15,7 @@ use heck::{AsTitleCase, ToSnakeCase};
 use robotstxt_with_cache::{DefaultCachingMatcher, DefaultMatcher};
 use select::{document::Document, predicate::Attr};
 
-use std::{collections::HashMap, fmt::Display, io::Read};
+use std::{collections::HashMap, fmt::Display};
 #[derive(Debug)]
 pub struct JohnlewisCom;
 
@@ -62,7 +63,7 @@ impl Shop for JohnlewisCom {
             ..Default::default()
         };
         let mut product_links: Vec<String> = vec![];
-        for link in conf.gz_sitemap_links.iter().take(1) {
+        for link in conf.gz_sitemap_links.iter().take(*LIMIT_PAGES) {
             let content = get_response(link, true).await?;
 
             let site_links = get_sitemap_links_by_content(&content.clone(), "")?;

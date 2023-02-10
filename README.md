@@ -24,6 +24,15 @@ cargo run -- -s johnlewis_com  | jq '.'
 
 ```
 
+Crawling only 10 products from a shop:
+
+```bash
+cargo run -- -s johnlewis_com --limit_pages 10 
+
+```
+
+
+
 ##### Save sitemap links on storage:
 
 ```bash

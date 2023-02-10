@@ -9,6 +9,7 @@ use anyhow::Result;
 use clap::Parser;
 use itertools::Itertools;
 
+use lazy_static::lazy_static;
 use strum::VariantNames;
 use utilities::url_reader;
 
@@ -24,6 +25,9 @@ struct Args {
         num_args =  0..        // default_value = "technoworld curry"
     )]
     shops_name: Vec<ShopName>,
+    /// Limit pages to crawl
+    #[clap(long = "limit_pages")]
+    limit_pages: Option<usize>,
 
     /// List of indexed shops
     #[clap(short = 'l', long = "list")]
@@ -55,6 +59,12 @@ struct Args {
     database: bool,
     #[clap(flatten)]
     verbose: clap_verbosity_flag::Verbosity,
+}
+lazy_static! {
+    static ref LIMIT_PAGES: usize = {
+        let opts = Args::parse();
+        opts.limit_pages.unwrap_or(1)
+    };
 }
 
 #[tokio::main]
