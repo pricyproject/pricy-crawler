@@ -26,8 +26,14 @@ struct Args {
     )]
     shops_name: Vec<ShopName>,
     /// Limit pages to crawl
-    #[clap(long = "limit_pages")]
+    #[clap(long = "limit-pages")]
     limit_pages: Option<usize>,
+    /// Keyword to filter products
+    #[clap(short, long = "filter-keyword")]
+    filter_keyword: Option<String>,
+    /// Filter products by URL
+    #[clap(long = "filter-url")]
+    filter_url: Option<String>,
 
     /// List of indexed shops
     #[clap(short = 'l', long = "list")]
@@ -57,14 +63,29 @@ struct Args {
     /// Database interactions
     #[clap(short = 'd', long = "database")]
     database: bool,
-    #[clap(flatten)]
-    verbose: clap_verbosity_flag::Verbosity,
+}
+
+pub struct DynamicArgs {
+    pub limit_pages: usize,
+    pub filter_keyword: String,
+    pub filter_url: String,
+}
+
+impl Default for DynamicArgs {
+    fn default() -> Self {
+        let opt = Args::parse();
+
+        let limit_pages = opt.limit_pages.unwrap_or(1);
+        let filter_keyword = opt.filter_keyword.unwrap_or("".to_string());
+        Self {
+            limit_pages,
+            filter_keyword,
+            filter_url: opt.filter_url.unwrap_or("".to_string()),
+        }
+    }
 }
 lazy_static! {
-    static ref LIMIT_PAGES: usize = {
-        let opts = Args::parse();
-        opts.limit_pages.unwrap_or(1)
-    };
+    pub static ref DYNAMIC_ARGS: DynamicArgs = DynamicArgs::default();
 }
 
 #[tokio::main]

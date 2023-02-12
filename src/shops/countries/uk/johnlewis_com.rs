@@ -6,7 +6,7 @@ use crate::{
         conf_loader::config_loader,
         website::{get_response, get_sitemap_links, get_sitemap_links_by_content},
     },
-    LIMIT_PAGES,
+    DYNAMIC_ARGS,
 };
 use anyhow::Result;
 use async_trait::async_trait;
@@ -36,14 +36,15 @@ impl Display for JohnlewisCom {
 }
 
 async fn crawl_url(url: &str) -> Result<Product> {
-    // We are going to have a URL from johnlewis.com and we are going to crawl it.
-    // We are going to get the product name, price, description, images, etc.
-
     let product_page_content = get_response(url, false).await?;
     let mut product = Product {
         ..Default::default()
     };
-    if !product_page_content.contains("No longer available online") {
+
+    if !product_page_content.contains("No longer available online")
+        && product_page_content.contains(DYNAMIC_ARGS.filter_keyword.as_str())
+        && url.contains(DYNAMIC_ARGS.filter_url.as_str())
+    {
         let document = Document::from(product_page_content.as_str());
 
         for node in document.find(Attr("type", "application/ld+json")).take(1) {
@@ -109,7 +110,7 @@ impl Shop for JohnlewisCom {
             ..Default::default()
         };
         let mut product_links: Vec<String> = vec![];
-        for link in conf.gz_sitemap_links.iter().take(*LIMIT_PAGES) {
+        for link in conf.gz_sitemap_links.iter().take(DYNAMIC_ARGS.limit_pages) {
             let content = get_response(link, true).await?;
 
             let site_links = get_sitemap_links_by_content(&content.clone(), "")?;

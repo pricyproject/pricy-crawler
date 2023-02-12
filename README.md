@@ -16,6 +16,7 @@ List of available shops:
 cargo run -- -l
 
 ```
+To make json output more readable, use `jq` command. You can install it from [here](https://stedolan.github.io/jq/download/).
 
 Following commands shows how crawler start scraping from `johnlewis.com`.
 
@@ -27,10 +28,25 @@ cargo run -- -s johnlewis_com  | jq '.'
 Crawling only 10 products from a shop:
 
 ```bash
-cargo run -- -s johnlewis_com --limit_pages 10 
+cargo run -- -s johnlewis_com --limit-pages 10 
 
 ```
 
+Filter products by keyword:
+
+```bash
+cargo run -- -s johnlewis_com --filter-keyword original
+```
+Filter products by URL:
+
+```bash
+cargo run -- -s johnlewis_com --filter-url /p54
+```
+Combine filters:
+
+```bash
+cargo run -- -s johnlewis_com --filter-url /p54 --filter-keyword original
+```
 
 
 ##### Save sitemap links on storage:
