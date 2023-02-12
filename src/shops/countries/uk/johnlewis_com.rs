@@ -110,7 +110,7 @@ impl Shop for JohnlewisCom {
             ..Default::default()
         };
         let mut product_links: Vec<String> = vec![];
-        for link in conf.gz_sitemap_links.iter().take(DYNAMIC_ARGS.limit_pages) {
+        for link in conf.gz_sitemap_links.iter().take(1) {
             let content = get_response(link, true).await?;
 
             let site_links = get_sitemap_links_by_content(&content.clone(), "")?;
@@ -121,7 +121,7 @@ impl Shop for JohnlewisCom {
             product_links.extend(site_links);
         }
         let mut products: Vec<Product> = vec![];
-        for product_link in product_links.iter().take(4) {
+        for product_link in product_links.iter().take(DYNAMIC_ARGS.limit_pages) {
             let crawled_product: Product = crawl_url(product_link).await?;
 
             if !crawled_product.name.is_empty() {
