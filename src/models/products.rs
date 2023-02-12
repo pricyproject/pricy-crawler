@@ -2,10 +2,8 @@ use crate::{
     models::utils::{threads, timeout},
     utilities::builder,
 };
-use heck::AsTitleCase;
-use uuid::Uuid;
-
 use anyhow::Result;
+use heck::AsTitleCase;
 
 use chrono::Utc;
 use reqwest::{Client, StatusCode};
@@ -24,7 +22,6 @@ pub enum Currency {
 /// let other_product = Product {name: "something".to_string(), ..Default::default()};
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Product {
-    pub id: String,
     pub name: String,
     pub link: String,
     pub price: f64,
@@ -43,7 +40,6 @@ pub struct Product {
 impl Default for Product {
     fn default() -> Self {
         Product {
-            id: Uuid::new_v4().to_string(),
             name: String::from(""),
             link: String::new(),
             price: 0.0,
