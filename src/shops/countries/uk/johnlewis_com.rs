@@ -23,7 +23,9 @@ impl JohnlewisCom {
     pub fn new() -> Self {
         Self {}
     }
-    pub async fn crawl_single_url(_valid_url: &str) -> Result<()> {
+    pub async fn crawl_single_url(valid_url: &str) -> Result<()> {
+        let product = crawl_url(valid_url).await?;
+        println!("{}", serde_json::to_string_pretty(&product)?);
         Ok(())
     }
 }
@@ -31,6 +33,50 @@ impl Display for JohnlewisCom {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{:?}", &self)
     }
+}
+
+async fn crawl_url(url: &str) -> Result<Product> {
+    // We are going to have a URL from johnlewis.com and we are going to crawl it.
+    // We are going to get the product name, price, description, images, etc.
+
+    let product_page_content = get_response(url, false).await?;
+    let mut product = Product {
+        ..Default::default()
+    };
+    if !product_page_content.contains("No longer available online") {
+        let document = Document::from(product_page_content.as_str());
+
+        for node in document.find(Attr("type", "application/ld+json")).take(1) {
+            let result = node.text();
+
+            let json_result: serde_json::Value = serde_json::from_str(&result)?;
+            product.link = url.to_string();
+            let image = format!("{}?.jpg", json_result["image"].to_string().replace('"', ""));
+            product.image = image;
+            product.currency = Currency::Pound;
+            product.name = json_result["name"].to_string().replace('"', "");
+
+            if json_result["offers"]
+                .as_object()
+                .unwrap()
+                .contains_key("lowPrice")
+            {
+                product.price = json_result["offers"]["lowPrice"]
+                    .to_string()
+                    .replace('\"', "")
+                    .parse::<f64>()
+                    .unwrap()
+            } else {
+                product.price = json_result["offers"]["price"]
+                    .to_string()
+                    .replace('\"', "")
+                    .parse::<f64>()
+                    .unwrap()
+            }
+        }
+    }
+
+    Ok(product)
 }
 
 #[async_trait]
@@ -75,43 +121,10 @@ impl Shop for JohnlewisCom {
         }
         let mut products: Vec<Product> = vec![];
         for product_link in product_links.iter().take(4) {
-            let product_page = get_response(product_link.as_str(), false).await?;
-            if !product_page.contains("No longer available online") {
-                let document = Document::from(product_page.as_str());
-                let mut product = Product {
-                    ..Default::default()
-                };
-                for node in document.find(Attr("type", "application/ld+json")).take(1) {
-                    let result = node.text();
+            let crawled_product: Product = crawl_url(product_link).await?;
 
-                    let json_result: serde_json::Value = serde_json::from_str(&result)?;
-                    product.link = product_link.to_string();
-                    let image =
-                        format!("{}?.jpg", json_result["image"].to_string().replace('"', ""));
-                    product.image = image;
-                    product.currency = Currency::Pound;
-                    product.name = json_result["name"].to_string().replace('"', "");
-
-                    if json_result["offers"]
-                        .as_object()
-                        .unwrap()
-                        .contains_key("lowPrice")
-                    {
-                        product.price = json_result["offers"]["lowPrice"]
-                            .to_string()
-                            .replace('\"', "")
-                            .parse::<f64>()
-                            .unwrap()
-                    } else {
-                        product.price = json_result["offers"]["price"]
-                            .to_string()
-                            .replace('\"', "")
-                            .parse::<f64>()
-                            .unwrap()
-                    }
-
-                    products.push(product.clone());
-                }
+            if !crawled_product.name.is_empty() {
+                products.push(crawled_product.clone());
             }
         }
 
