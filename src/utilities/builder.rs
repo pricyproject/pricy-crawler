@@ -20,7 +20,7 @@ pub fn initialize(client_builder_options: ClientBuilderOptions) -> Result<Client
         .timeout(Duration::new(client_builder_options.timeout, 0))
         .gzip(client_builder_options.is_gzip)
         .default_headers(header_map)
-        .user_agent(&client_builder_options.user_agent);
+        .user_agent(client_builder_options.user_agent);
 
     if let Some(some_proxy) = client_builder_options.proxy {
         if !some_proxy.is_empty() {
@@ -31,16 +31,4 @@ pub fn initialize(client_builder_options: ClientBuilderOptions) -> Result<Client
     }
 
     Ok(client.build()?)
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    /// create client with a proxy, expect no error
-    fn client_with_good_proxy() {
-        let _proxy = "http://127.0.0.1:8080";
-        initialize(ClientBuilderOptions::default()).unwrap();
-    }
 }

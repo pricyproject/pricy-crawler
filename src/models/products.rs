@@ -129,11 +129,13 @@ impl Default for ClientBuilderOptions {
         );
         let user_agent = args.user_agent.unwrap_or(builtin_user_agent);
 
+        let proxy = args.proxy;
+
         ClientBuilderOptions {
             timeout,
             user_agent,
             headers: HashMap::new(),
-            proxy: None,
+            proxy,
             is_gzip,
         }
     }

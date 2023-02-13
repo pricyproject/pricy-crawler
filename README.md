@@ -56,6 +56,12 @@ Use a custom user-agent:
 cargo run -- -s johnlewis_com --user-agent "MyStrong Bot/1.0.0"
 ```
 
+Use a custom proxy:
+
+```bash
+cargo run -- -s johnlewis_com --proxy http://localhost:3001
+```
+
 ##### Save sitemap links on storage:
 
 ```bash

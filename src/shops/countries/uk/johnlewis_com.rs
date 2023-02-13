@@ -110,8 +110,6 @@ impl Shop for JohnlewisCom {
             let content = get_response(link).await?;
 
             let site_links = get_sitemap_links_by_content(&content.clone(), "")?;
-            // Debuging site links.
-            // dbg!(decoded_gz_response)
 
             // extend moves value inside a vector to another vector.
             product_links.extend(site_links);

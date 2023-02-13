@@ -44,6 +44,10 @@ struct Args {
     /// Use a custom user-agent
     #[clap(short = 'u', long = "user-agent")]
     user_agent: Option<String>,
+    /// Proxy to use
+    /// Example: --proxy "https://127.0.0.1:3001"
+    #[clap(long = "proxy")]
+    proxy: Option<String>,
     /// Accept urls by piping all URLs.
     #[clap(short = 'p', long = "pipe")]
     pipe: bool,

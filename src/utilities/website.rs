@@ -80,8 +80,6 @@ pub async fn get_response(link: &str) -> Result<String> {
 
         let client = crate::utilities::builder::initialize(ClientBuilderOptions::default())
             .expect("Ops! There was an error since building a client");
-        // print user_agent
-        println!("User-Agent: {}", client_request_options.user_agent);
 
         let mut response_string = String::new();
         let response_bytes = client.get(link).send().await?.bytes().await?;
