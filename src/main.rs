@@ -26,8 +26,8 @@ struct Args {
     )]
     shops_name: Vec<ShopName>,
     /// Limit pages to crawl
-    #[clap(long = "limit-pages")]
-    limit_pages: Option<usize>,
+    #[clap(long = "limit-products")]
+    limit_products: Option<usize>,
     /// Keyword to filter products
     #[clap(short, long = "filter-keyword")]
     filter_keyword: Option<String>,
@@ -69,7 +69,7 @@ struct Args {
 }
 
 pub struct DynamicArgs {
-    pub limit_pages: usize,
+    pub limit_products: usize,
     pub filter_keyword: String,
     pub filter_url: String,
 }
@@ -78,10 +78,10 @@ impl Default for DynamicArgs {
     fn default() -> Self {
         let opt = Args::parse();
 
-        let limit_pages = opt.limit_pages.unwrap_or(1);
+        let limit_products = opt.limit_products.unwrap_or(1);
         let filter_keyword = opt.filter_keyword.unwrap_or("".to_string());
         Self {
-            limit_pages,
+            limit_products,
             filter_keyword,
             filter_url: opt.filter_url.unwrap_or("".to_string()),
         }

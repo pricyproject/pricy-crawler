@@ -118,7 +118,7 @@ impl Shop for JohnlewisCom {
             product_links.extend(site_links);
         }
         let mut products: Vec<Product> = vec![];
-        for product_link in product_links.iter().take(DYNAMIC_ARGS.limit_pages) {
+        for product_link in product_links.iter().take(DYNAMIC_ARGS.limit_products) {
             let crawled_product: Product = crawl_url(product_link).await?;
 
             if !crawled_product.name.is_empty() {

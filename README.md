@@ -28,7 +28,7 @@ cargo run -- -s johnlewis_com  | jq '.'
 Crawling only 10 products from a shop:
 
 ```bash
-cargo run -- -s johnlewis_com --limit-pages 10 
+cargo run -- -s johnlewis_com --limit-products 10 
 
 ```
 
