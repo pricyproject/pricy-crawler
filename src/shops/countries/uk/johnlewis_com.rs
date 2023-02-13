@@ -107,7 +107,6 @@ impl Shop for JohnlewisCom {
         conf.gz_sitemap_links = get_sitemap_links(&conf.sitemap_address, "products").await?;
         let mut product_links: Vec<String> = vec![];
         for link in conf.gz_sitemap_links.iter().take(1) {
-
             let content = get_response(link).await?;
 
             let site_links = get_sitemap_links_by_content(&content.clone(), "")?;

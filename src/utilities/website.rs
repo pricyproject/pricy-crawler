@@ -65,28 +65,23 @@ pub async fn get_product_detail(product_link: &str, search_class: &str) -> Resul
 // Send a simple request to get site response.
 
 pub async fn get_response(link: &str) -> Result<String> {
-    let client_request_options = ClientBuilderOptions::default();
-
-    let mut is_gzip = client_request_options.is_gzip;
+    let mut client_request_options = ClientBuilderOptions::default();
 
     if link.ends_with(".gz") {
-        is_gzip = true;
+        client_request_options.is_gzip = true;
     }
 
-    if is_gzip {
+    if client_request_options.is_gzip {
         let mut headers = HeaderMap::new();
         headers.insert(
             "Accept-Encoding",
             HeaderValue::from_static("gzip, deflate, br"),
         );
-        let client = reqwest::Client::builder()
-            .gzip(true)
-            .user_agent(concat!(
-                env!("CARGO_PKG_NAME"),
-                "/",
-                env!("CARGO_PKG_VERSION")
-            ))
-            .build()?;
+
+        let client = crate::utilities::builder::initialize(ClientBuilderOptions::default())
+            .expect("Ops! There was an error since building a client");
+        // print user_agent
+        println!("User-Agent: {}", client_request_options.user_agent);
 
         let mut response_string = String::new();
         let response_bytes = client.get(link).send().await?.bytes().await?;

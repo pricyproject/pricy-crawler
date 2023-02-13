@@ -122,17 +122,19 @@ impl Default for ClientBuilderOptions {
         let args = Args::parse();
         let timeout = args.timeout.unwrap_or(10);
         let is_gzip = args.gzip.unwrap_or(false);
+        let builtin_user_agent = format!(
+            "{}/{}",
+            AsTitleCase(env!("CARGO_PKG_NAME")),
+            env!("CARGO_PKG_VERSION")
+        );
+        let user_agent = args.user_agent.unwrap_or(builtin_user_agent);
 
         ClientBuilderOptions {
             timeout,
-            user_agent: format!(
-                "{}/{}",
-                AsTitleCase(env!("CARGO_PKG_NAME")),
-                env!("CARGO_PKG_VERSION")
-            ),
+            user_agent,
             headers: HashMap::new(),
             proxy: None,
-            is_gzip
+            is_gzip,
         }
     }
 }

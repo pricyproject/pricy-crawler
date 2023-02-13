@@ -41,9 +41,9 @@ struct Args {
     /// Custom headers
     #[clap(short = 'H', long = "Header")]
     header: Option<String>,
-    /// Changes current user-agent to a bot.
-    #[clap(short = 'b', long = "bot")]
-    bot: bool,
+    /// Use a custom user-agent
+    #[clap(short = 'u', long = "user-agent")]
+    user_agent: Option<String>,
     /// Accept urls by piping all URLs.
     #[clap(short = 'p', long = "pipe")]
     pipe: bool,

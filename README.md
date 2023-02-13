@@ -48,6 +48,13 @@ Combine filters:
 cargo run -- -s johnlewis_com --filter-url /p54 --filter-keyword original
 ```
 
+### Customize your request:
+
+Use a custom user-agent:
+
+```bash
+cargo run -- -s johnlewis_com --user-agent "MyStrong Bot/1.0.0"
+```
 
 ##### Save sitemap links on storage:
 
