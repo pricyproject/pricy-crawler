@@ -47,7 +47,7 @@ impl Shop for NordicnestCom {
         let sitemaps = get_sitemap_links_by_content(&response, "").unwrap();
         let product_links = get_sitemap_links(sitemaps[1].as_str(), "").await?;
         for link in product_links.iter().take(1) {
-            let result = get_response(link, false).await?;
+            let result = get_response(link).await?;
             let document = Document::from(result.as_str());
             // for node in document.find(Attr()) {
             //     println!("{:?}", node)

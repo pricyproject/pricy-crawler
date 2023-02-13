@@ -113,14 +113,26 @@ pub struct ClientBuilderOptions {
     pub is_gzip: bool,
 }
 
+use crate::Args;
+use clap::Parser;
+// Get default value for ClientBuilderOptions from user input on command line and implement `Default` trait for it.
+
 impl Default for ClientBuilderOptions {
     fn default() -> Self {
+        let args = Args::parse();
+        let timeout = args.timeout.unwrap_or(10);
+        let is_gzip = args.gzip.unwrap_or(false);
+
         ClientBuilderOptions {
-            timeout: timeout(),
-            user_agent: env!("CARGO_PKG_NAME").to_string(),
+            timeout,
+            user_agent: format!(
+                "{}/{}",
+                AsTitleCase(env!("CARGO_PKG_NAME")),
+                env!("CARGO_PKG_VERSION")
+            ),
             headers: HashMap::new(),
             proxy: None,
-            is_gzip: false,
+            is_gzip
         }
     }
 }

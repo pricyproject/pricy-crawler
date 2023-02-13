@@ -46,7 +46,7 @@ impl Shop for JdsportsIt {
         if read_to_string(&sitemap_file_path).is_ok() {
             sitemap_file_content = read_to_string(sitemap_file_path)?;
         } else {
-            let sitemap_content = get_response(&shop_detail.sitemap_address, false).await?;
+            let sitemap_content = get_response(&shop_detail.sitemap_address).await?;
             let sitemap_links = get_sitemap_links_by_content(sitemap_content.as_str(), "")?;
             sitemap_file_content = sitemap_links
                 .iter()
@@ -58,7 +58,7 @@ impl Shop for JdsportsIt {
 
         let mut products: Vec<Product> = Vec::new();
         for link in sitemap_file_content.lines().take(5) {
-            let product_page = get_response(link, false).await?;
+            let product_page = get_response(link).await?;
 
             if !product_page.contains("Nessun prodotto corrisponde alla tua ricerca.") {
                 let document = Document::from(product_page.as_str());

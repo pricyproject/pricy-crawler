@@ -59,7 +59,7 @@ impl Shop for LaptopsdirectCoUk {
 
         for i in links.iter().take(1) {
             let link = i.as_str();
-            let contents = get_response(link, false).await?;
+            let contents = get_response(link).await?;
             let document = Document::from(contents.as_str());
             for node in document.find(Attr("id", "products")) {
                 print!("{node:?}")

@@ -63,6 +63,9 @@ struct Args {
     /// Database interactions
     #[clap(short = 'd', long = "database")]
     database: bool,
+    /// Timeout for requests, Default is 10 seconds
+    #[clap(short = 't', long = "timeout", default_value = "10")]
+    timeout: Option<u64>,
 }
 
 pub struct DynamicArgs {

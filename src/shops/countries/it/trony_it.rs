@@ -40,7 +40,7 @@ impl Shop for TronyIt {
         let sitemap_file = read_to_string(sitemap_file_path)?;
         let mut products: Vec<Product> = Vec::new();
         for link in sitemap_file.lines().take(2) {
-            let product_page = get_response(link, false).await?;
+            let product_page = get_response(link).await?;
             let document = Document::from(product_page.as_str());
             let mut product = Product {
                 ..Default::default()

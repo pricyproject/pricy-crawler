@@ -1,6 +1,6 @@
 use std::io::Read;
 
-use crate::models::products::CrawlConfig;
+use crate::models::products::{ClientBuilderOptions, CrawlConfig};
 use anyhow::Result;
 use bytes::Bytes;
 use flate2::read::GzDecoder;
@@ -64,7 +64,15 @@ pub async fn get_product_detail(product_link: &str, search_class: &str) -> Resul
 
 // Send a simple request to get site response.
 
-pub async fn get_response(link: &str, is_gzip: bool) -> Result<String> {
+pub async fn get_response(link: &str) -> Result<String> {
+    let client_request_options = ClientBuilderOptions::default();
+
+    let mut is_gzip = client_request_options.is_gzip;
+
+    if link.ends_with(".gz") {
+        is_gzip = true;
+    }
+
     if is_gzip {
         let mut headers = HeaderMap::new();
         headers.insert(

@@ -36,7 +36,7 @@ impl Display for JohnlewisCom {
 }
 
 async fn crawl_url(url: &str) -> Result<Product> {
-    let product_page_content = get_response(url, false).await?;
+    let product_page_content = get_response(url).await?;
     let mut product = Product {
         ..Default::default()
     };
@@ -105,13 +105,10 @@ impl Shop for JohnlewisCom {
             gz_sitemap_links: Vec::new(),
         };
         conf.gz_sitemap_links = get_sitemap_links(&conf.sitemap_address, "products").await?;
-        let _config_gz = CrawlConfig {
-            client: utilities::builder::initialize(ClientBuilderOptions::default())?,
-            ..Default::default()
-        };
         let mut product_links: Vec<String> = vec![];
         for link in conf.gz_sitemap_links.iter().take(1) {
-            let content = get_response(link, true).await?;
+
+            let content = get_response(link).await?;
 
             let site_links = get_sitemap_links_by_content(&content.clone(), "")?;
             // Debuging site links.

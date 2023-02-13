@@ -57,7 +57,7 @@ impl Shop for CurrysCoUk {
         let links: Vec<String> = get_sitemap_links_by_content(&response, "")?;
 
         for link in links.iter().take(1) {
-            let product_page = get_response(link, false).await?;
+            let product_page = get_response(link).await?;
             let document = Document::from(product_page.as_str());
 
             println!("{document:?}");

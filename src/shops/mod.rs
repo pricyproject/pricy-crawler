@@ -76,10 +76,10 @@ impl ShopName {
         }
     }
 
-    pub async fn store_sitemap_urls_in_storage(&self, is_gzip: bool) -> Result<()> {
+    pub async fn store_sitemap_urls_in_storage(&self, _is_gzip: bool) -> Result<()> {
         let main_config = config_loader(self.to_string())?;
         let shop_detail = main_config.shop_detail.clone();
-        let sitemap_content = get_response(&shop_detail.sitemap_address, is_gzip).await?;
+        let sitemap_content = get_response(&shop_detail.sitemap_address).await?;
         let sitemap_links = get_sitemap_links_by_content(sitemap_content.as_str(), "")?;
         create_local_sitemap(&sitemap_links, false, &shop_detail)?;
 
