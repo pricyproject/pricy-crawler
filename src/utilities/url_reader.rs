@@ -12,7 +12,6 @@ use walkdir::WalkDir;
 
 pub async fn url_loader_from_pipe() -> Result<()> {
     let url_regex = Regex::new(r#"https?://(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)"#).unwrap();
-    let url_regex_v2 : Regex = 
     let config_directory_files = WalkDir::new("./configs/");
     let mut buffer = String::from("");
     let mut standard_input = stdin();
