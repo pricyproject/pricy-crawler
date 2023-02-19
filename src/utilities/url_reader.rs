@@ -12,12 +12,13 @@ use walkdir::WalkDir;
 
 pub async fn url_loader_from_pipe() -> Result<()> {
     let url_regex = Regex::new(r#"https?://(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)"#).unwrap();
+    let url_regex_v2 : Regex = 
     let config_directory_files = WalkDir::new("./configs/");
     let mut buffer = String::from("");
     let mut standard_input = stdin();
-    standard_input.read_to_string(&mut buffer);
+    standard_input.read_to_string(&mut buffer)?;
 
-    /// This is absoulte solution for gathering valid urls.
+    // This is absoulte solution for gathering valid urls.
     let mut valid_urls = vec![];
     for input_line in buffer.lines() {
         if let Some(valid_url) = url_regex.captures(input_line) {
@@ -25,8 +26,8 @@ pub async fn url_loader_from_pipe() -> Result<()> {
         }
     }
 
-    /// Put whatever in config files inside `config` directory.
-    /// And push them inside `site_address` array.
+    // Put whatever in config files inside `config` directory.
+    // And push them inside `site_address` array.
     let mut site_addresses = vec![];
     for file in config_directory_files.into_iter().skip(1) {
         let path = file?.path().display().to_string();
@@ -41,8 +42,8 @@ pub async fn url_loader_from_pipe() -> Result<()> {
             }
         }
     }
-    /// Check URLs inside `valid_urls` with site_address.
-    /// And push them to crawlable URls'
+    // Check URLs inside `valid_urls` with site_address.
+    // And push them to crawlable URls'
     let mut crawlable_urls: Vec<&str> = vec![];
     use url::Url;
     for url in valid_urls.iter() {
@@ -53,7 +54,7 @@ pub async fn url_loader_from_pipe() -> Result<()> {
         }
     }
 
-    /// Parse each url based on their hosts
+    // Parse each url based on their hosts
     for valid_url in valid_urls {
         let shop_name = Url::parse(valid_url)?.host_str().unwrap().to_owned();
         let new_shop_name: ShopName = shop_name
@@ -63,8 +64,8 @@ pub async fn url_loader_from_pipe() -> Result<()> {
             .unwrap();
         new_shop_name.crawl_single_url(valid_url).await?
     }
-    /// Search config directory for sites
-    /// Parse url from `://../` and match via sitename in `shopname.toml`
-    /// Start crawl that url
+    // Search config directory for sites
+    // Parse url from `://../` and match via sitename in `shopname.toml`
+    // Start crawl that url
     Ok(())
 }

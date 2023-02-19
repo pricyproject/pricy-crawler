@@ -20,11 +20,12 @@ pub fn create_local_sitemap(
     conf: &ShopDetail,
 ) -> Result<()> {
     let shop_name = &conf.sitename;
-    let mut path = String::from("");
+    let mut path = String::new();
+    let date = now();
     if gzip_dir {
-        path = format!("./sitemaps/{}/gz/{}", shop_name, now());
+        path = format!("./sitemaps/{shop_name}/gz/{date}");
     } else {
-        path = format!("./sitemaps/{}/plain/{}", shop_name, now());
+        path = format!("./sitemaps/{shop_name}/plain/{date}");
     }
 
     create_dir_all(&path)?;
