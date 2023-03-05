@@ -65,13 +65,13 @@ cargo run -- -s johnlewis_com --proxy http://localhost:3001
 ##### Save sitemap links on storage:
 
 ```bash
-cargo run -- -s johnlewis_com --save_sitemap
+cargo run -- -s johnlewis_com --save-sitemap
 ```
 
 - If sitemap is in `gzip` format
 
 ```bash
-cargo run -- -s yourshop_com --save_sitemap --gzip true
+cargo run -- -s yourshop_com --save-sitemap --gzip true
 ```
 
 

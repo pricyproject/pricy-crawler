@@ -55,7 +55,7 @@ struct Args {
     #[clap(short = 'm', long = "multiple_products")]
     multiple_products: Option<String>,
     /// Store sitemaps in Storage. Add "--gzip true" if sitemap is in gzip format
-    #[clap(long = "save_sitemap")]
+    #[clap(long = "save-sitemap")]
     save_sitemap: bool,
     /// Decodes sitemap with gzip content
     #[clap(short = 'g', long = "gzip")]
